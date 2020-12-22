@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 
 export default function Modal({ restartGame }) {
   const [render, setRender] = useState(false);
+
   useEffect(() => {
     setTimeout(() => {
       setRender(true);
     }, 1000);
   }, []);
+  
   return (
     <div
       style={{

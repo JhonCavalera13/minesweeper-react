@@ -12,14 +12,15 @@ export default function Timer({ gameOver, sendTime }) {
     }
     incrementTime();
   }, [time]);
-
-  console.log(timeIntervalId);
+  
   return (
-    <div style={{ color: "white", fontSize: 20, background: "maroon" }}>
-      <span role="img" aria-label="clock" style={{ paddingRight: 10 }}>
-        ⏰
-      </span>
-      {time}
+    <div style={{ color: "white", fontSize: 20, background: "#ccc", marginBottom: '10px' }}>
+      <div>
+        <span role="img" aria-label="clock" style={{ paddingRight: 10 }}>
+          ⏰
+        </span>
+        {time}
+      </div>
     </div>
   );
 }

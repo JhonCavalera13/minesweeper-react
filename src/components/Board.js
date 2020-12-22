@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import createBoard from '../utils/createBoard';
+import { revealed } from '../utils/reveal';
 import Cell from './Cell';
 import Modal from './Modal';
 import Timer from './Timer';
 
-export const Board = () => {
+export const Board = ({ row, col, bombs }) => {
     const [grid, setGrid] = useState([]);
     const [nonMineCount, setNonMineCount] = useState(0);
     const [mineLocations, setMineLocations] = useState([]);
@@ -14,11 +16,11 @@ export const Board = () => {
 
         // Calling the function
         freshBoard();
-    }, []);
+    }, [row, col, bombs]);
 
     const freshBoard = () => {
-        const newBoard = createBoard(10, 15, 15);
-        setNonMineCount(10 * 15 - 15);
+        const newBoard = createBoard(row, col, bombs);
+        setNonMineCount(row * col - bombs);
         setMineLocations(newBoard.mineLocation);
         setGrid(newBoard.board);
     };
@@ -61,9 +63,10 @@ export const Board = () => {
         }
     };
 
+    console.log(grid)
+
     return (
         <div>
-            <p>Minesweeper</p>
             <Timer />
             <div
                 style={{
@@ -73,8 +76,36 @@ export const Board = () => {
                     position: "relative",
                 }}
             >
-                {gameOver && <Modal restartGame={restartGame} />}
-                {grid.map((singleRow, index1) => {
+                {
+                    gameOver &&
+                    <Modal restartGame={restartGame} />
+                }
+
+                {
+                    grid.map((singleRow, index1) =>
+                        <div style={{ display: "flex" }} key={index1}>
+                            {
+                                singleRow.map((singleBlock, index2) =>
+                                    <Cell
+                                        revealCell={revealCell}
+                                        details={singleBlock}
+                                        updateFlag={updateFlag}
+                                        key={index2}
+                                    />
+                                )
+                            }
+                        </div>
+
+                    )
+                }
+
+            </div>
+        </div>
+    )
+}
+
+
+{/* {grid.map((singleRow, index1) => {
                     return (
                         <div style={{ display: "flex" }} key={index1}>
                             {singleRow.map((singleBlock, index2) => {
@@ -89,8 +120,4 @@ export const Board = () => {
                             })}
                         </div>
                     );
-                })}
-            </div>
-        </div>
-    )
-}
+                })} */}

@@ -1,6 +1,6 @@
 import React from "react";
-import { mineColor } from "../util/mineColors";
 import "../App.css";
+import { mineColor } from "../utils/mineColors";
 import Circle from "./Circle";
 
 export default function Cell({ details, updateFlag, revealCell }) {
@@ -20,17 +20,19 @@ export default function Cell({ details, updateFlag, revealCell }) {
       style={cellstyle}
       className="cellStyle"
     >
-      {!details.revealed && details.flagged ? (
-        "🚩"
-      ) : details.revealed && details.value !== 0 ? (
-        details.value === "X" ? (
-          <Circle />
+      {
+        !details.revealed && details.flagged ? (
+          "🚩"
+        ) : details.revealed && details.value !== 0 ? (
+          details.value === "X" ? (
+            <Circle />
+          ) : (
+              details.value
+            )
         ) : (
-          details.value
-        )
-      ) : (
-        ""
-      )}
+              ""
+            )
+      }
     </div>
   );
 }
@@ -60,19 +62,20 @@ const chexPattern = (x, y) => {
 };
 
 const numColorCode = (num) => {
-  if (num === 1) {
-    return "#1976d2";
-  } else if (num === 2) {
-    return "#388d3c";
-  } else if (num === 3) {
-    return "#d33030";
-  } else if (num === 4) {
-    return "#7c21a2";
-  } else if (num === 5) {
-    return "#1976d2";
-  } else if (num === 6) {
-    return "#1976d2";
-  } else {
-    return "white";
+  switch (num) {
+    case 1:
+      return "#1976d2";
+    case 2:
+      return "#388d3c";
+    case 3:
+      return "#d33030";
+    case 4:
+      return "#7c21a2";
+    case 5:
+      return "#1976d2";
+    case 6:
+      return "#1976d2";
+    default:
+      return "white";
   }
 };
